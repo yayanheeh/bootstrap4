@@ -45,15 +45,16 @@
 }
 
 // Mixin for generating new styles
-.btn-styles(@btn-color: #555, @btn-custom-end: darken(#555, 12%)) {
-  #gradient > .vertical(@start-color: @btn-color; @end-color: @btn-custom-end);
+.btn-styles(@btn-color: #555) {
+  #gradient > .vertical(@start-color: @btn-color; @end-color: darken(@btn-color, 12%));
   .reset-filter(); // Disable gradients for IE9 because filter bleeds through rounded corners; see https://github.com/twbs/bootstrap/issues/10620
   background-repeat: repeat-x;
   border-color: darken(@btn-color, 14%);
 
   &:hover,
   &:focus  {
-    background: lighten(@btn-color, 10%);
+    background-color: darken(@btn-color, 12%);
+    background-position: 0 -15px;
   }
 
   &:active,
@@ -89,11 +90,20 @@
 
 // Apply the mixin to the buttons
 .btn-default { .btn-styles(@btn-default-bg); text-shadow: 0 1px 0 #fff; border-color: #ccc; }
-.btn-primary { .btn-styles(@btn-primary-bg, #ffa200); }
+.btn-primary { .btn-styles(@btn-primary-bg); }
 .btn-success { .btn-styles(@btn-success-bg); }
 .btn-info    { .btn-styles(@btn-info-bg); }
 .btn-warning { .btn-styles(@btn-warning-bg); }
 .btn-danger  { .btn-styles(@btn-danger-bg); }
+
+// Override the mixin for .btn-primary, which has a custom gradient applied
+.btn-primary {
+  #gradient > .vertical(@start-color: @btn-primary-bg, @end-color: #ffa200);
+  border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);
+  &:hover, &.focus {
+    background-color: #ffa200;
+  }
+}
 
 
 //
