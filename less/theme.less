@@ -11,6 +11,12 @@
 @import "variables.less";
 @import "mixins.less";
 
+// Override the 10px html font-size so that codemirror (mdeditor in our repo) 
+// has its rem usage rendered reasonably, which expects 1rem to be a normal font size
+html { 
+  font-size: 100%
+}
+
 
 //
 // Buttons
